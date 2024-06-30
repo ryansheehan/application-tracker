@@ -51,6 +51,7 @@
     {#if $errors.password}
     <small class="invalid">{$errors.password}</small>
     {/if}
+    <br />
     <button>Login</button>
 </form>
 
