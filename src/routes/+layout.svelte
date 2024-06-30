@@ -1,5 +1,6 @@
 <script lang="ts">
     import Logout from '$lib/components/logout.svelte';
+    import "../app.css";
 
     let {children, data} = $props();   
     let isUserLoggedIn = $derived(data.isUserLoggedIn); 
@@ -19,26 +20,3 @@
 <main>
     {@render children()}
 </main>
-
-<style>
-    :global(html, body) {
-        height: 100%;
-    }
-
-    :global(body) {
-        background-color: #262626;
-        color: #e6e6e6;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-flow: column nowrap;
-    }    
-
-    nav a {
-        color: #e6e6e6;
-    }
-
-    main {        
-        flex: 1 1 auto;
-    }
-</style>
