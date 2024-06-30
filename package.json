@@ -1,36 +1,44 @@
 {
-	"name": "job-hunt",
+	"name": "application-tracker",
 	"version": "0.0.1",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"dotenv": "dotenv -c development",
+		"prisma": "npm run dotenv -- prisma",
 		"vercel": "vercel",
 		"setup:vercel-link": "vercel link",
 		"setup:vercel-env": "vercel env pull .env.development.local",
 		"setup": "run-s setup:*"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-auto": "^3.2.2",
 		"@sveltejs/adapter-vercel": "^5.3.2",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@sveltejs/kit": "^2.5.17",
+		"@sveltejs/vite-plugin-svelte": "^3.1.1",
+		"dotenv-cli": "^7.4.2",
 		"npm-run-all": "^4.1.5",
-		"svelte": "^5.0.0-next.1",
-		"svelte-check": "^3.6.0",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
+		"prisma": "^5.16.1",
+		"svelte": "^5.0.0-next.166",
+		"svelte-check": "^3.8.4",
+		"tslib": "^2.6.3",
+		"typescript": "^5.5.2",
 		"vercel": "^34.2.8",
-		"vite": "^5.0.3"
+		"vite": "^5.3.2"
 	},
-	"type": "module",
 	"dependencies": {
+		"@lucia-auth/adapter-prisma": "^4.0.1",
+		"@lucia-auth/oauth": "^3.5.3",
+		"@lucia-auth/sveltekit": "^0.6.11",
+		"@prisma/client": "^5.16.1",
 		"@vercel/postgres": "^0.9.0",
-		"@vercel/postgres-kysely": "^0.9.0",
-		"kysely": "^0.27.3",
-		"pg": "^8.12.0"
+		"lucia": "^3.2.0",
+		"sveltekit-superforms": "^2.15.2",
+		"zod": "^3.23.8"
 	}
 }

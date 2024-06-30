@@ -1,0 +1,80 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    // Uses connection pooling
+    url       = env("POSTGRES_PRISMA_URL")
+    // Uses direct connection, ⚠️ make sure to keep this to `POSTGRES_URL_NON_POOLING`
+    // or you'll have dangling databases from migrations
+    directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+
+model User {
+  id             String   @id @default(cuid())
+  username       String   @unique // Username (populated with email) is the unique identifier
+  passwordHash   String?  // Optional password hash for email/password users
+  verified       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  sessions       Session[]
+  accounts       Account[]
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt      DateTime  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider          String
+  providerAccountId String
+  createdAt         DateTime @default(now())  
+
+  @@unique([provider, providerAccountId]) // Ensure unique account linking per provider
+}
+
+
+// model AuthUser {
+//     id           String        @id @unique
+//     firstName    String        @map("first_name")
+//     lastName     String        @map("last_name")
+//     email        String        @unique
+//     verified     Boolean       @default(false) @map("verified")
+//     auth_session AuthSession[]
+//     auth_key     AuthKey[]
+
+//     @@map("auth_user")
+// }
+
+// model AuthSession {
+//     id             String   @id @unique
+//     user_id        String
+//     active_expires BigInt
+//     idle_expires   BigInt
+//     auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+//     @@index([user_id])
+//     @@map("auth_session")
+// }
+
+// model AuthKey {
+//     id              String   @id @unique
+//     hashed_password String?
+//     user_id         String
+//     primary_key     Boolean
+//     expires         BigInt?
+//     auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+//     @@index([user_id])
+//     @@map("auth_key")
+// }

@@ -9,6 +9,8 @@ interface ImportMetaEnv {
     readonly POSTGRES_URL_NON_POOLING: string,
     readonly POSTGRES_URL_NO_SSL: string,
     readonly POSTGRES_USER: string,
+
+    readonly NODE_ENV: "development" | "production",
 }
 
 interface ImportMeta {
