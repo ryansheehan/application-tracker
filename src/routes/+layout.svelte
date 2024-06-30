@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Logout from '$lib/components/logout.svelte';
+
     let {children, data} = $props();   
     let isUserLoggedIn = $derived(data.isUserLoggedIn); 
 </script>
@@ -7,15 +9,10 @@
     <a href="/">Home</a>
     <a href="/public">Public</a>
     {#if isUserLoggedIn}
-    <a href="/protected">Protected</a>
-    {/if}
-    <a href="/test">Test</a>
-    {#if !isUserLoggedIn}
-    <a href="/signup">Sign Up</a>
+    <a href="/protected">Protected</a>    
+    <Logout/>
+    {:else}
     <a href="/login">Login</a>
-    {/if}
-    {#if isUserLoggedIn}
-    <a href="/logout">Logout</a>
     {/if}
 </nav>
 

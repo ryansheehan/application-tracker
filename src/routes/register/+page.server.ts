@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { superValidate, message, type ErrorStatus } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { registerUserByPassword } from '$lib/server/lucia';
 import {CustomError, CustomErrorType} from '$lib/server/error';
 import type { Actions, PageServerLoad } from "./$types";
@@ -77,6 +77,6 @@ export const actions: Actions = {
 			}
 			return message(form, response, {status: errorCode});			
 		}		
-		return message(form, 'Successfully registered.')		
+		redirect(302, "/");		
 	}
 }

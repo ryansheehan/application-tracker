@@ -53,3 +53,5 @@
     {/if}
     <button>Login</button>
 </form>
+
+<p>Dont have an account? <a href="/register">Register here</a>!</p>
