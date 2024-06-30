@@ -2,7 +2,6 @@ import type {Handle} from '@sveltejs/kit';
 import {lucia} from '$lib/server/lucia';
 
 export const auth: Handle = async ({event, resolve}) => {
-    console.log('auth hook');
     const sessionId = event.cookies.get(lucia.sessionCookieName);
     if (!sessionId) {
         event.locals.user = null;
@@ -10,10 +9,7 @@ export const auth: Handle = async ({event, resolve}) => {
         return resolve(event);
     }
 
-    const {session, user} = await lucia.validateSession(sessionId);
-    
-    console.log('SESSION:');
-    console.log(session);
+    const {session, user} = await lucia.validateSession(sessionId);    
 
     if (session?.fresh) {
         const sessionCookie = lucia.createSessionCookie(session.id);
