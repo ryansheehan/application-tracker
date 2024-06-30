@@ -1,14 +1,24 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
-    let {children}: {children: Snippet} = $props();
+    let {children, data} = $props();
+    const {isUserLoggedIn} = data;
 </script>
 
 <nav>
     <a href="/">Home</a>
+    <a href="/public">Public</a>
+    {#if isUserLoggedIn}
+    <a href="/protected">Protected</a>
+    {/if}
+    <a href="/test">Test</a>
+    {#if !isUserLoggedIn}
     <a href="/signup">Sign Up</a>
     <a href="/login">Login</a>
+    {/if}
+    {#if isUserLoggedIn}
     <a href="/logout">Logout</a>
+    {/if}
 </nav>
 
 <main>

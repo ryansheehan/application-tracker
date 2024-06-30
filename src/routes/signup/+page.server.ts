@@ -58,8 +58,7 @@ export const actions: Actions = {
 			cookies.set(sessionCookie.name, sessionCookie.value, {
 				path: ".",
 				...sessionCookie.attributes,
-			});
-			return message(form, 'Successfully registered.')
+			});			
 		} catch(err) {
 			let errorCode: ErrorStatus = 500;
 			let response = "Internal Server Error";
@@ -78,5 +77,6 @@ export const actions: Actions = {
 			}
 			return message(form, response, {status: errorCode});			
 		}		
+		return message(form, 'Successfully registered.')		
 	}
 }

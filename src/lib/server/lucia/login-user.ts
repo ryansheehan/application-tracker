@@ -21,9 +21,7 @@ export async function loginUser(email: string, password: string) {
         const session = await lucia.createSession(user.id, {});        
         const sessionCookie = await lucia.createSessionCookie(session.id);               
         return sessionCookie;
-    } catch(err) {
-        console.log('unexpected error');
-        console.log(err);
+    } catch(err) {        
         const error = err instanceof Error ? err as Error : undefined;
         throw new CustomError(CustomErrorType.Internal, "Unable to create session", error);
     }

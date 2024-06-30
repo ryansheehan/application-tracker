@@ -1,11 +1,17 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import { superForm } from "sveltekit-superforms";
+    import {goto} from '$app/navigation';
 
-    const {data} = $props();
+    let {data} = $props();
 
     const { form, errors, message, enhance, constraints } = superForm(data.form, {
-        multipleSubmits: 'prevent'
+        multipleSubmits: 'prevent',
+        onResult({result}) {
+            if(result.status === 200) {                
+                goto('/', {invalidateAll: true});
+            }
+        },
     });
 </script>
 

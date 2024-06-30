@@ -19,8 +19,6 @@ const schema = z.object({
 export const load: PageServerLoad = async ({locals}) => {
     if (locals?.user?.username) { return redirect(302, "/"); }
 
-    console.log(locals);
-
     const testData = {
 		email: 'rsheehan@gmail.com',
 		password: 'Password@1',		
@@ -42,7 +40,7 @@ export const actions: Actions = {
             cookies.set(sessionCookie.name, sessionCookie.value, {
                 path: ".",
                 ...sessionCookie.attributes,
-            });                     
+            });                                 
         } catch(err) {
 			let errorCode: ErrorStatus = 500;
 			let response = "Internal Server Error";
@@ -60,8 +58,8 @@ export const actions: Actions = {
 				}			
 			}
 			return message(form, response, {status: errorCode});			
-		}    
-        console.log('redirecting user');   
-        return redirect(302, "/");
+		}        
+        
+        redirect(302, "/");                
     }
 }

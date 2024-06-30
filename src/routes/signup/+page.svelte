@@ -3,7 +3,7 @@
     import { superForm } from "sveltekit-superforms";
     import SuperDebug from "sveltekit-superforms";
 
-    const {data} = $props();
+    let {data} = $props();
 
     const { form, errors, message, enhance, constraints } = superForm(data.form, {
         multipleSubmits: 'prevent'
