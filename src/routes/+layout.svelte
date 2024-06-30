@@ -3,7 +3,7 @@
     import "../app.css";
 
     let {children, data} = $props();   
-    let isUserLoggedIn = false// $derived(data.isUserLoggedIn); 
+    let isUserLoggedIn = $derived(data.isUserLoggedIn); 
 </script>
 
 <nav>
