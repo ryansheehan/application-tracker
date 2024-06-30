@@ -1,8 +1,6 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-
-    let {children, data} = $props();
-    const {isUserLoggedIn} = data;
+    let {children, data} = $props();   
+    let isUserLoggedIn = $derived(data.isUserLoggedIn); 
 </script>
 
 <nav>

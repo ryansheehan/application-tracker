@@ -60,6 +60,6 @@ export const actions: Actions = {
 			return message(form, response, {status: errorCode});			
 		}        
         
-        redirect(302, "/");                
+        redirect(302, "/");                        
     }
 }
