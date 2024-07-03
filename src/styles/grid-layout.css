@@ -1,0 +1,44 @@
+.content-grid {
+    --padding-inline: var(--size-3);
+    --content-max-width: var(--size-content-3);
+    --breakout-max-width: var(--size-md);
+
+    --breakout-size: calc(0.5 * (var(--breakout-max-width) - var(--content-max-width)));
+
+    display: grid;
+    grid-template-columns: 
+        [full-width-start] minmax(var(--padding-inline), 1fr)
+        [breakout-start] minmax(0, var(--breakout-size))
+        [content-start] 
+        min(100% - (2 * var(--padding-inline)), var(--content-max-width))
+        [content-end]
+        minmax(0, var(--breakout-size)) [breakout-end righ-side-start]
+        minmax(var(--padding-inline), 1fr) [full-width-end right-side-end]
+    ;
+
+    grid-auto-rows: min-content;
+}
+
+.content-grid > :not(.breakout, .full-width),
+.full-width > :not(.breakout, .full-width) {
+    grid-column: content;
+}
+
+.content-grid > .breakout {
+    grid-column: breakout;
+}
+
+.content-grid > .right-side {
+    grid-column: right-side;
+}
+
+.content-grid > .full-width {
+    grid-column: full-width;
+
+    display: grid;
+    grid-template-columns: inherit;
+}
+
+.col-span-all {
+    grid-column: 1 / -1;
+}
