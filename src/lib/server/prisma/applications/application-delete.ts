@@ -4,7 +4,14 @@ import { CustomError, CustomErrorType } from '$lib/server/error';
 export async function deleteApplication(id: string) {
     try {
         const deletedApplication = await prisma.application.delete({
-            where: { id }
+            where: { id },
+            select: {
+                id: true,
+                position: true,                
+                links: { select: { id: true, url: true, label: true }},
+                events: { select: { id: true, type: true, date: true, notes: true}, orderBy: { date: 'desc' }},
+                company: {select: { id: true, name: true }}
+            }
         });        
         return deletedApplication;
     } catch (err) {

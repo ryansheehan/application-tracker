@@ -1,4 +1,6 @@
 export enum CustomErrorType {    
+    Forbidden,
+    NotFound,
     InvalidInput,
     Internal,
 }

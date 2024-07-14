@@ -25,7 +25,7 @@ export async function addApplication(newApplication: NewAppliction, userId: stri
     // see if an application for the user already exists for this company with this same position
     const companyId = company.id;
     const position = newApplication.position.toLocaleLowerCase();
-    let application = await prisma.application.findFirst({
+    const existingApplication = await prisma.application.findFirst({
         where: {
             AND: [
                 {userId},
@@ -34,10 +34,10 @@ export async function addApplication(newApplication: NewAppliction, userId: stri
             ]
         }
     });
-    if (application) { throw new CustomError(CustomErrorType.InvalidInput, "An application for this company and position already exists."); }
+    if (existingApplication) { throw new CustomError(CustomErrorType.InvalidInput, "An application for this company and position already exists."); }
 
     // create the application
-    application = await prisma.application.create({
+    const application = await prisma.application.create({
         data: {
             userId,
             companyId,
@@ -55,12 +55,14 @@ export async function addApplication(newApplication: NewAppliction, userId: stri
                     data: newApplication.links.map(link => ({url: link, label: ''}))
                 }
             }
-        },
-        include: {
-            company: {select: { id: true, name: true}},
-            events: { select: {type: true, date: true, notes: true}},
-            links: { select: {url: true, label: true}},
-        },
+        },        
+        select: {
+            id: true,
+            position: true,            
+            links: { select: { id: true, url: true, label: true }},
+            events: { select: { id: true, type: true, date: true, notes: true}, orderBy: { date: 'desc' }},
+            company: {select: { id: true, name: true }}
+        }
     });
     if (!application) { throw new CustomError(CustomErrorType.Internal, "Failed to create application"); }
 
