@@ -1,4 +1,4 @@
-import type {NewUserData} from '../types'
+import type {NewUserData} from './types'
 import {prisma} from './prisma';
 
 

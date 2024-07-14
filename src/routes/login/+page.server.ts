@@ -1,19 +1,10 @@
-import {z} from 'zod';
 import { superValidate, message, type ErrorStatus } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from "./$types";
 import {loginUser} from '$lib/server/lucia';
 import {CustomError, CustomErrorType} from '$lib/server/error';
-
-const schema = z.object({
-    email: z.string({
-        message: "Invalid email"
-    }).email(),
-    password: z.string({
-        message: "Incorrect username or password"
-    }).min(8).max(255),
-});
+import {schema} from './login-form-schema';
 
 
 export const load: PageServerLoad = async ({locals}) => {

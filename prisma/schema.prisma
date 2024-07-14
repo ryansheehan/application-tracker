@@ -21,6 +21,8 @@ model User {
   updatedAt      DateTime @updatedAt
   sessions       Session[]
   accounts       Account[]
+
+  applications   Application[]
 }
 
 model Session {
@@ -41,6 +43,63 @@ model Account {
   createdAt         DateTime @default(now())  
 
   @@unique([provider, providerAccountId]) // Ensure unique account linking per provider
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  applications Application[]
+
+  @@index([name])
+}
+
+model Application {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  position    String  
+  createdAt   DateTime @default(now())  
+  events      ApplicationEvent[]
+  links       ApplicationLink[]
+
+  @@unique([userId, companyId, position])
+  @@index([userId])
+}
+
+model ApplicationLink {
+  id          String   @id @default(cuid())
+  applicationId String
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  label       String
+  url         String
+  createdAt   DateTime @default(now())
+}
+
+enum ApplicationEventType {
+  APPLIED
+  INTERVIEW
+  REJECTED
+  OFFER
+  COUNTER_OFFER
+  RECEEDED_OFFER
+  ACCEPTED
+  DECLINED
+  ABANDONED
+  OTHER
+}
+
+model ApplicationEvent {
+  id             String   @id @default(cuid())
+  applicationId  String
+  application    Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  type           ApplicationEventType
+  date           DateTime
+  notes          String?
+  createdAt      DateTime @default(now())
 }
 
 

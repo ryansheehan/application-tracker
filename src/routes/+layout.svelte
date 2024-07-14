@@ -8,6 +8,10 @@
 
 <AppBar {isUserLoggedIn} />
 
-<main>
+<main class="content-grid">
     {@render children()}
 </main>
+
+<style>
+
+</style>

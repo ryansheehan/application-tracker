@@ -2,7 +2,7 @@ import {lucia} from './lucia';
 import {getUserByEmailWithAccounts, createUserByPassword} from '$lib/server/prisma';
 import {CustomError, CustomErrorType} from '$lib/server/error'
 import {hashPassword} from './hash';
-import type {NewUserData} from '../types';
+import type {NewUserData} from '../prisma/types';
 
 export async function registerUserByPassword(newUser: NewUserData, password: string)  {
     // see if the user already exists, and if so, see if they already registered by email and password

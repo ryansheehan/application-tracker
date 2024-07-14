@@ -13,10 +13,11 @@
         <a href="/">Home</a>
         <a href="/public">Public</a>
         {#if isUserLoggedIn}
-        <a href="/protected">Protected</a>        
+        <a href="/protected">Protected</a>     
+        <a href="/applications">Applications</a>
         {/if}
     </nav>
-    <div class="right-side">
+    <div class="right-side logout">
         {#if isUserLoggedIn}
         <LogoutButton/>
         {:else}
@@ -26,5 +27,27 @@
 </header>
 
 <style>
+    header {
+        /* padding: var(--size-2); */
+        background-color: var(--surface-2);
+    }
+
+    .content-grid {
+        align-items: baseline;
+        padding-block: var(--size-2);
+    }
+
+    /* .content-grid > * {
+        margin-block: var(--size-2);
+    } */
+
+    nav {
+        text-align: center;
+        width: 100%;
+    } 
     
+    .logout {
+        justify-self: flex-end;
+        margin-right: var(--size-2);
+    }
 </style>

@@ -7,20 +7,20 @@
 
     display: grid;
     grid-template-columns: 
-        [full-width-start] minmax(var(--padding-inline), 1fr)
-        [breakout-start] minmax(0, var(--breakout-size))
+        [full-width-start left-side-start] minmax(var(--padding-inline), 1fr)
+        [breakout-start  left-side-end] minmax(0, var(--breakout-size))
         [content-start] 
         min(100% - (2 * var(--padding-inline)), var(--content-max-width))
         [content-end]
-        minmax(0, var(--breakout-size)) [breakout-end righ-side-start]
+        minmax(0, var(--breakout-size)) [breakout-end right-side-start]
         minmax(var(--padding-inline), 1fr) [full-width-end right-side-end]
     ;
 
     grid-auto-rows: min-content;
 }
 
-.content-grid > :not(.breakout, .full-width),
-.full-width > :not(.breakout, .full-width) {
+.content-grid > :not(.breakout, .full-width, .right-side, .left-side),
+.full-width > :not(.breakout, .full-width, .right-side, .left-side) {
     grid-column: content;
 }
 
@@ -30,6 +30,10 @@
 
 .content-grid > .right-side {
     grid-column: right-side;
+}
+
+.content-grid > .left-side {
+    grid-column: left-side;
 }
 
 .content-grid > .full-width {
