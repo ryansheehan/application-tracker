@@ -62,6 +62,7 @@ model Application {
   companyId   String
   company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
   position    String  
+  notes       String?  @default("")
   createdAt   DateTime @default(now())  
   events      ApplicationEvent[]
   links       ApplicationLink[]
@@ -100,6 +101,7 @@ model ApplicationEvent {
   notes          String?
   createdAt      DateTime @default(now())
 }
+
 
 
 // model AuthUser {

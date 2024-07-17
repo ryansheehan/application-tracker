@@ -10,10 +10,8 @@
 
 <header class="content-grid">    
     <nav class="breakout">
-        <a href="/">Home</a>
-        <a href="/public">Public</a>
-        {#if isUserLoggedIn}
-        <a href="/protected">Protected</a>     
+        <a href="/">Home</a>        
+        {#if isUserLoggedIn}         
         <a href="/applications">Applications</a>
         {/if}
     </nav>
