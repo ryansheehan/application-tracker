@@ -8,8 +8,9 @@ export async function getApplications(userId: string) {
             select: {
                 position: true,
                 id: true,
+                notes: true,
                 company: { select: {id: true, name: true}},
-                events: { select: {id: true, type: true, date: true, notes: true}, orderBy: {date: 'desc'}},
+                events: { select: {id: true, type: true, date: true, notes: true}, orderBy: {date: 'desc'}, take: 1},
                 links: { select: {id: true, url: true, label: true}},
             },
         });                

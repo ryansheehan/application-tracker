@@ -9,6 +9,7 @@ export async function getApplicationDetails(id: string) {
                 id: true,
                 position: true,
                 userId: true,
+                notes: true,
                 links: { select: { id: true, url: true, label: true }},
                 events: { select: { id: true, type: true, date: true, notes: true}, orderBy: { date: 'desc' }},
                 company: {select: { id: true, name: true }}

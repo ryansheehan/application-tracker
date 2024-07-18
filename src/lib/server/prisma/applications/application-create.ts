@@ -52,7 +52,7 @@ export async function addApplication(newApplication: NewAppliction, userId: stri
             },
             links: {
                 createMany: {
-                    data: newApplication.links.map(link => ({url: link, label: ''}))
+                    data: newApplication.links
                 }
             }
         },        

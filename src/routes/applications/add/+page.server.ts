@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({locals}) => {
     const testData = {
         company: "My Test Company",
         position: "Software Engineer",
-        links: ["https://google.com"]
+        links: [{label: 'Google', url: 'https://www.google.com'}]
     }
 
     return {
@@ -39,9 +39,7 @@ export const actions: Actions = {
 
         try {
             const application = await addApplication(newApplication, userId);
-            if (application) {
-                return redirect(302, '/applications');
-            }
+            console.log('application saved', application.company);
         } catch (err) {
             const error = CustomError.coerce(err);
             if (error) {
@@ -52,9 +50,11 @@ export const actions: Actions = {
                         return message(form, "Internal Server Error", {status: 500});
                 }
             }
+            console.log(err);
             return message(form, "Internal Server Error", {status: 500});
         }
 
-        return message(form, "Application added successfully.");
+        console.log('successfully added application');
+        return message(form, {status: 'created'});
     }
 }

@@ -5,6 +5,6 @@ export interface NewUserData {
 export interface NewAppliction {
     company: string;
     position: string;
-    links: string[];
+    links: {label: string, url:string}[];
 }
 
